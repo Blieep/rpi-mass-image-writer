@@ -1,4 +1,7 @@
 # rpi-mass-image-writer
+
+WARNING: Under active development (30/3/17) so this readme is not accurate.
+
 Raspberry Pi that writes to many USB drives at one go. Hardware buttons available to select the stored disk image to copy as well as to shutdown the device. 
 
 Disk images are transferred to the Raspberry Pi via a Samba shared folder. The selected image is then written in parallel to all the drives at once using the ```dd```, ```pv``` and ```tee``` commands 
