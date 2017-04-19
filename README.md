@@ -107,7 +107,8 @@ you should see two/three partitions. if you look in the last column labeled Syst
 1.	W95 FAT32
 2.	Linux
 3.	Linux Swap (I didn’t have this, that’s ok)
-make a note of the start number for Linux partiton (in this case, partition 2), you will need this later. Though it will likely still be on the screen (just in case).
+
+Make a note of the start number for Linux partiton (in this case, partition 2), you will need this later. Though it will likely still be on the screen (just in case).
 next type `d` to delete a partition.
 You will then be prompted for the number of the partition you want to delete. In the case above you want to delete both the Linux and Linux swap (if it exists) partitions.
 So type `2`
