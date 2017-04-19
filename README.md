@@ -4,13 +4,11 @@ Raspberry Pi that writes to many USB drives / SD cards at once. Hardware interfa
 
 Disk images are transferred to the Raspberry Pi via a Samba shared folder. The selected image is then written in parallel to all the drives at once using the ```dd```, ```pv``` and ```tee``` commands 
 
-![Screen](/photos/front-idle-with-case.jpg)
+![Screen](/photos/console-and-hub.jpg)
 
-Everything in with a nice 3D printed case.
+![Screen](/photos/sd-cards-in-adapters.jpg)
 
-![Screen](/photos/front-writing-no-case.jpg)
 
-The innards
 
 # How to use?
 1. Login to shared folder - Windows: navigate to `\\hostname\images`
