@@ -13,13 +13,13 @@ Everything in with a nice 3D printed case.
 The innards
 
 # How to use?
-1. Login to shared folder
-2. Transfer image files via samba to shared folder
-3. Plug in all drives to write to
-4. Hit left button to enumerate all images and drives 
-5. Use up/down buttons to select image
-6. Press the right button to start writing to drives. You can press it again to terminate writing.
-7. Press the select button (extreme left) to shutdown device properly to prevent data corruption. The words "Shutting down" will remain even after the device has completely shutdown, so just wait for the activity light to turn off before pulling the power.
+1. Login to shared folder - Windows: navigate to `\\hostname\images`
+2. Transfer image files to the shared folder.
+3. Plug in all drives to write to.
+4. Press left button to enumerate all images and drives.
+5. Use up/down buttons to select image.
+6. Press the right button to start writing to drives. Press again to halt writing.
+7. Press the select button (extreme left) to shutdown device properly to prevent data corruption. The words "Shutting down" will remain even after the device has completely shutdown, so just wait for the activity light to turn off before removing power.
 
 # Hardware
 1. Raspberry Pi 3 Model B. Older models will work, you will need to edit which i2c bus is used in Adafruit_I2C.py
@@ -32,18 +32,22 @@ On a fresh install of ARCH Linux, login as root. If you logged in as alarm, exec
 Download and install packages:
 `pacman -Syu python2 i2c-tools samba pv git`
 
-If an error occurs, remove the offending file eg: `rm /etc/ssl/certs/ca-certificates.crt` and reattempt installing the packages.
+If an error occurs, remove the offending file eg: I had to `rm /etc/ssl/certs/ca-certificates.crt` and reattempt installing the packages.
 Enable i2c: (source: https://wiki.archlinux.org/index.php/Raspberry_Pi#I2C)
-  Use nano, append `/boot/config.txt` with `dtparam=i2c_arm=on`
-  Configure the `i2c-dev` and `i2c-bcm2708` modules to be loaded at boot:
-  Append `/etc/modules-load.d/raspberrypi.conf` with:
-  ```
-  i2c-dev
-  i2c-bcm2708
-  ```
 
-Clone the application
+Use nano, append `/boot/config.txt` with `dtparam=i2c_arm=on`
+
+Configure the `i2c-dev` and `i2c-bcm2708` modules to be loaded at boot:
+Append `/etc/modules-load.d/raspberrypi.conf` with:
+```
+i2c-dev
+i2c-bcm2708
+```
+
+Clone the repo
+```
 git clone https://github.com/michaelruppe/rpi-mass-image-writer.git
+```
 
 ## I2C configuration
 In `Adafruit_I2C.py`, I've uncommented line 35 and comment line 36 to hard-code the i2c bus to use i2c bus \#1 (raspberry pi 3 B)
@@ -56,15 +60,16 @@ python2 writer.py
 ```
 
 LCD should turn on
+
 ## Setting up samba
-### The storage directory for the images. 
+### The network shared directory to store images. 
 There is already a default conf file, so executing the following command creates a new conf file – ie don’t be concerned if you are writing a completely new file.
 `nano /etc/samba/smb.conf`
-Add/Modify the following lines to your smb.conf file
+Add/Modify the following lines to your `smb.conf` file
 ```
 [global]
 workgroup = WORKGROUP
-server string = SD Duplicator
+server string = SD Writer
 security = user
 log file = /var/log/samba/%m.log
 max log size = 50
