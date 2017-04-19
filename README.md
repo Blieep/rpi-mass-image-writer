@@ -6,7 +6,7 @@ Disk images are transferred to the Raspberry Pi via a Samba shared folder. The s
 
 ![Screen](/photos/console-and-hub.jpg)
 
-![Screen](/photos/sd-cards-in-adapters.jpg)
+![Screen](/photos/sd-cards-in-adapters.JPG)
 
 
 
