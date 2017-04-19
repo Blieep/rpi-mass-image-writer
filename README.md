@@ -37,8 +37,10 @@ Enable i2c: (source: https://wiki.archlinux.org/index.php/Raspberry_Pi#I2C)
   Use nano, append `/boot/config.txt` with `dtparam=i2c_arm=on`
   Configure the `i2c-dev` and `i2c-bcm2708` modules to be loaded at boot:
   Append `/etc/modules-load.d/raspberrypi.conf` with:
-  `i2c-dev
-  i2c-bcm2708`
+  ```
+  i2c-dev
+  i2c-bcm2708
+  ```
 
 Clone the application
 git clone https://github.com/michaelruppe/rpi-mass-image-writer.git
@@ -48,8 +50,10 @@ In `Adafruit_I2C.py`, I've uncommented line 35 and comment line 36 to hard-code 
 ie: `self.bus = smbus.SMBus(1);` Selects to use bus \#1
 
 Run the app to make sure all is well:
-`cd rpi-mass-image-writer
-python2 writer.py`
+```bash
+cd rpi-mass-image-writer
+python2 writer.py
+```
 
 LCD should turn on
 ## Setting up samba
@@ -57,7 +61,8 @@ LCD should turn on
 There is already a default conf file, so executing the following command creates a new conf file – ie don’t be concerned if you are writing a completely new file.
 `nano /etc/samba/smb.conf`
 Add/Modify the following lines to your smb.conf file
-`[global]
+```
+[global]
 workgroup = WORKGROUP
 server string = SD Duplicator
 security = user
@@ -67,21 +72,28 @@ dns proxy = no
 
 [images]
 path = /root/rpi-mass-image-writer/images
-writable = yes`
+writable = yes
+```
 
 ### Create a user for samba
-`smbpasswd -a root
-systemctl enable smbd`
+```bash
+smbpasswd -a root
+systemctl enable smbd
+```
 
 I chose “root” as the password, which is why the login to access the images directory over the network is user:root, pass:root
 Change the hostname
-`hostnamectl set-hostname newHostName`
+```
+hostnamectl set-hostname newHostName
+```
 
 
 ## Starting at boot
-`cp /root/rpi-mass-image-writer/writer.service /etc/systemd/system/
+```
+cp /root/rpi-mass-image-writer/writer.service /etc/systemd/system/
 systemctl enable writer.service
-reboot`
+reboot
+```
 
 ## Expanding the filesystem
 
