@@ -166,47 +166,19 @@ def writeImage():
 
 
 def constructCommand():
-    
-    #check last four characters of current selection for ".zip" or ".img"
-    if imageNames[currentImageSelection][-4:] == ".zip":
-        # Extract the zipped file
-        
-        command = "pv -n " + imagePath + "\"" +  imageNames[currentImageSelection] +  "\""
-        numDrives = len(listOfDrives)
-        
-        firstDriveName = listOfDrives[0]
-        firstDriveCommand = " | unzip -d /dev/" + firstDriveName
-        
-        
-        for i in range(1, numDrives):
-            nextDriveCommand = " | tee >(unzip -d /dev/" + listOfDrives[i]
-            command += nextDriveCommand
-        
-        command += firstDriveCommand
-        
-        
-    elif imageNames[currentImageSelection][-4:] == ".img":
-        # Extract the image file
-        
-        command = "pv -n " + imagePath + "\"" +  imageNames[currentImageSelection] +  "\""
-        numDrives = len(listOfDrives)
-        
-        firstDriveName = listOfDrives[0]
-        firstDriveCommand = " | dd of=/dev/" + firstDriveName + " bs=1M"
-        
-        
-        for i in range(1, numDrives):
-            nextDriveCommand = " | tee >(dd of=/dev/" + listOfDrives[i] + " bs=1M)"
-            command += nextDriveCommand
-        
-        command += firstDriveCommand
-        
-    else:
-        # Not a valid file, do nothing
-        command = ""
-    
-    
-    
+    command = "pv -n " + imagePath + "\"" +  imageNames[currentImageSelection] +  "\""
+    numDrives = len(listOfDrives)
+
+    firstDriveName = listOfDrives[0]
+    firstDriveCommand = " | dd of=/dev/" + firstDriveName + " bs=1M"
+
+
+    for i in range(1, numDrives):
+        nextDriveCommand = " | tee >(dd of=/dev/" + listOfDrives[i] + " bs=1M)"
+        command += nextDriveCommand
+
+
+    command += firstDriveCommand
     print command
     return command
 
