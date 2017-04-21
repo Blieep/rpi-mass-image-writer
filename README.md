@@ -11,7 +11,7 @@ Disk images are transferred to the Raspberry Pi via a Samba shared folder. The s
 
 
 # How to use?
-1. Login to shared folder - Windows: navigate to `\\hostname\images`
+1. Login to shared folder - Windows: navigate to `\\[hostname]\images`
 2. Transfer image files to the shared folder.
 3. Plug in all drives to write to.
 4. Press left button to enumerate all images and drives.
